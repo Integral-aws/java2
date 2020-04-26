@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.java1.dto.LegumbreDTO;
+import com.example.java1.dto.ResponseDTO;
 import com.example.java1.service.IServicioBO;
 
 @RestController
@@ -14,6 +15,14 @@ public class EntradaServicio {
 
 	@Autowired
 	private IServicioBO iServicioBO;
+	
+	@GetMapping("test")
+	public ResponseEntity<ResponseDTO> test(){
+		ResponseDTO res = new ResponseDTO();
+		res.setError(false);
+		res.setMensaje("Prueba exitosa");
+		return new ResponseEntity<ResponseDTO>(res, HttpStatus.OK);
+	}
 	
 	@GetMapping("serv1")
 	public ResponseEntity<LegumbreDTO> obtenerLegumbres(){
