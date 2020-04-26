@@ -17,23 +17,33 @@ pipeline {
       }
     }
     stage('Build'){
-      steps {
+      /*steps {
         sh """
         echo "########################"
         echo "*** Construyendo JAR ***"
         echo "########################"
         ${DOCKER_MAVEN_CONTAINER} mvn -B -DskipTests clean package
         """
+      }*/
+      steps {
+        withMaven(maven: 'maven_3_6_3'){
+          sh 'mvn -B -DskipTests clean package'
+        }
       }
     }
     stage('Test'){
-      steps {
+      /*steps {
         sh """
         echo "####################################"
         echo "*** Realizando pruebas unitarias ***"
         echo "####################################"
         ${DOCKER_MAVEN_CONTAINER} mvn test
         """
+      }*/
+      steps {
+        withMaven(maven: 'maven_3_6_3'){
+          sh 'mvn test'
+        }
       }
     } 
     stage('Create Image'){
